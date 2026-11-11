@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RTC Connect | Bus Reservation</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="#" data-page="home"><span class="brand-mark">RTC</span><span>RTC <b>Connect</b><small>Bus Reservation System</small></span></a>
+  <nav>
+    <a href="#" class="nav-link active" data-page="home">Home</a>
+    <a href="#" class="nav-link" data-page="manage">Manage Booking</a>
+    <a href="#" class="nav-link" data-page="about">About</a>
+  </nav>
+  <a class="nav-cta" href="#" data-page="home">Book a ticket</a>
+</header>
+
+<main>
+  <section id="page-home" class="page active">
+    <div class="hero">
+      <div class="hero-copy">
+        <span class="eyebrow">TRAVEL MADE SIMPLE</span>
+        <h1>Your journey.<br><em>Your seat.</em></h1>
+        <p>Find a bus, choose your seat and book your journey in a few simple steps.</p>
+        <div class="hero-note"><span class="note-dot"></span> Simple booking · Clear fares · Instant ticket</div>
+      </div>
+      <div class="hero-art" aria-hidden="true"><div class="sun"></div><div class="road"></div><div class="bus-illustration"><div class="bus-window"></div><div class="bus-window second"></div><div class="bus-wheel one"></div><div class="bus-wheel two"></div></div><span class="art-label">LET'S GO</span></div>
+    </div>
+
+    <section class="search-panel">
+      <div class="section-kicker">PLAN YOUR TRIP</div>
+      <h2>Where would you like to go?</h2>
+      <form id="searchForm" class="search-grid">
+        <label class="field"><span>FROM</span><select id="from" required><option value="Vijayawada">Vijayawada</option><option>Guntur</option><option>Hyderabad</option><option>Visakhapatnam</option><option>Tirupati</option><option>Warangal</option></select></label>
+        <button type="button" id="swap" class="swap-btn" aria-label="Swap locations">⇄</button>
+        <label class="field"><span>TO</span><select id="to" required><option>Hyderabad</option><option>Vijayawada</option><option>Visakhapatnam</option><option>Guntur</option><option>Tirupati</option><option>Warangal</option></select></label>
+        <label class="field date-field"><span>JOURNEY DATE</span><input id="journeyDate" type="date" required></label>
+        <button class="primary-btn search-btn" type="submit">Search buses <span>→</span></button>
+      </form>
+      <p class="form-hint" id="searchError" role="status"></p>
+    </section>
+
+    <section class="popular-section">
+      <div class="section-heading"><div><div class="section-kicker">EXPLORE ROUTES</div><h2>Popular journeys</h2></div><span class="muted">Sample routes for this project</span></div>
+      <div class="route-grid">
+        <button class="route-card" data-from="Vijayawada" data-to="Hyderabad"><span class="route-icon">↗</span><b>Vijayawada <span>→</span> Hyderabad</b><small>300 km · 4 bus categories</small></button>
+        <button class="route-card" data-from="Guntur" data-to="Hyderabad"><span class="route-icon">↗</span><b>Guntur <span>→</span> Hyderabad</b><small>320 km · 4 bus categories</small></button>
+        <button class="route-card" data-from="Vijayawada" data-to="Visakhapatnam"><span class="route-icon">↗</span><b>Vijayawada <span>→</span> Visakhapatnam</b><small>350 km · 4 bus categories</small></button>
+        <button class="route-card" data-from="Hyderabad" data-to="Tirupati"><span class="route-icon">↗</span><b>Hyderabad <span>→</span> Tirupati</b><small>560 km · 4 bus categories</small></button>
+      </div>
+    </section>
+    <section class="info-strip"><div><b>24</b><span>Seats per bus</span></div><div><b>4</b><span>Bus categories</span></div><div><b>8</b><span>Sample routes</span></div><div><b>1</b><span>Easy booking flow</span></div></section>
+  </section>
+
+  <section id="page-results" class="page">
+    <div class="page-heading"><div><div class="section-kicker">AVAILABLE SERVICES</div><h1>Choose your bus</h1><p id="resultsRoute" class="muted"></p></div><button class="outline-btn" data-page="home">← Change search</button></div>
+    <div class="filter-row"><div><b id="resultCount">0 buses found</b><span class="muted"> · Select a service to view seats</span></div><label class="filter-label">Category <select id="categoryFilter"><option value="all">All categories</option><option>Ordinary</option><option>Express</option><option>Super Luxury</option><option>AC</option></select></label></div>
+    <div id="busResults" class="bus-list"></div>
+    <div id="noResults" class="empty-state hidden"><div class="empty-icon">⌕</div><h3>No buses found</h3><p>There are no sample services for this route. Try another source and destination.</p><button class="primary-btn" data-page="home">Search another route</button></div>
+  </section>
+
+  <section id="page-seats" class="page">
+    <div class="page-heading"><div><div class="section-kicker">STEP 1 OF 2</div><h1>Select your seat</h1><p class="muted">Choose one available seat from the layout.</p></div><button class="outline-btn" data-page="results">← Back to buses</button></div>
+    <div class="booking-layout">
+      <div class="panel seat-panel"><div class="panel-heading"><div><h2>Seat layout</h2><p class="muted">Front of the bus</p></div><span class="driver-icon">◉</span></div><div class="seat-legend"><span><i class="legend-box available"></i> Available</span><span><i class="legend-box selected"></i> Selected</span><span><i class="legend-box booked"></i> Booked</span></div><div class="bus-seat-wrap"><div class="seat-grid" id="seatGrid"></div></div><p class="muted small-note">This prototype uses a 24-seat sample layout.</p></div>
+      <aside class="panel summary-panel"><div class="section-kicker">YOUR SELECTION</div><h2 id="seatBusTitle">Bus details</h2><div id="seatBusDetails" class="summary-details"></div><div class="summary-total"><span>Ticket fare</span><b id="seatFare">₹0</b></div><button id="continuePassenger" class="primary-btn full-btn" disabled>Continue <span>→</span></button><p class="muted tiny">One seat can be booked per transaction.</p></aside>
+    </div>
+  </section>
+
+  <section id="page-passenger" class="page">
+    <div class="page-heading"><div><div class="section-kicker">STEP 2 OF 2</div><h1>Passenger details</h1><p class="muted">Enter the details for the person travelling.</p></div><button class="outline-btn" data-page="seats">← Change seat</button></div>
+    <div class="booking-layout">
+      <div class="panel"><h2>Contact information</h2><form id="passengerForm"><label class="field"><span>PASSENGER NAME</span><input id="passengerName" type="text" placeholder="Enter full name" maxlength="60" required></label><label class="field"><span>MOBILE NUMBER</span><input id="passengerPhone" type="tel" placeholder="10-digit mobile number" maxlength="10" inputmode="numeric" required></label><p class="form-hint" id="bookingError" role="alert"></p><button class="primary-btn" type="submit">Confirm booking <span>→</span></button></form></div>
+      <aside class="panel summary-panel"><div class="section-kicker">FARE SUMMARY</div><h2>Journey details</h2><div id="passengerSummary" class="summary-details"></div><div class="summary-total"><span>Total payable</span><b id="passengerFare">₹0</b></div><p class="muted tiny">Payment gateway is outside the scope of this academic prototype.</p></aside>
+    </div>
+  </section>
+
+  <section id="page-confirmation" class="page">
+    <div class="confirmation-wrap"><div class="success-mark">✓</div><div class="section-kicker">BOOKING COMPLETE</div><h1>Your ticket is confirmed</h1><p class="muted">Your sample reservation has been saved successfully.</p><div id="confirmedTicket" class="ticket-card"></div><div class="ticket-actions"><button id="printTicket" class="primary-btn">Print ticket</button><button class="outline-btn" data-page="home">Book another journey</button></div></div>
+  </section>
+
+  <section id="page-manage" class="page">
+    <div class="page-heading"><div><div class="section-kicker">TICKET MANAGEMENT</div><h1>Manage your booking</h1><p class="muted">View or cancel an existing reservation using its booking ID.</p></div></div>
+    <div class="manage-layout"><div class="panel"><h2>Find your ticket</h2><form id="manageForm"><label class="field"><span>BOOKING ID</span><input id="bookingId" placeholder="Example: RTC-1042" required></label><button class="primary-btn" type="submit">View ticket <span>→</span></button><button type="button" id="cancelTicket" class="danger-btn">Cancel ticket</button></form><p id="manageMessage" class="form-hint" role="status"></p></div><div id="managedTicket" class="panel managed-placeholder"><div class="placeholder-icon">▤</div><h3>Your ticket details will appear here</h3><p class="muted">Enter your booking ID to view a reservation.</p></div></div>
+  </section>
+
+  <section id="page-about" class="page">
+    <div class="page-heading"><div><div class="section-kicker">ABOUT THE PROJECT</div><h1>RTC Bus Ticketing System</h1><p class="muted">A C++ object-oriented bus reservation prototype with a browser-based interface.</p></div></div>
+    <div class="about-grid"><article class="panel"><span class="about-number">01</span><h2>Search and selection</h2><p>Search sample routes, compare four bus categories and view seat availability.</p></article><article class="panel"><span class="about-number">02</span><h2>Object-oriented design</h2><p>Uses an abstract Bus class, derived bus categories, Passenger, Ticket and BookingSystem classes.</p></article><article class="panel"><span class="about-number">03</span><h2>Booking management</h2><p>Creates a booking ID, stores booking records, supports ticket lookup and cancellation.</p></article></div>
+    <div class="notice"><b>Academic prototype notice</b><p>Route and fare information is sample data for demonstration. This project is not connected to live RTC schedules, real-time inventory or online payments.</p></div>
+  </section>
+</main>
+<footer><div class="footer-inner"><b>RTC Connect</b><span>Academic C++ OOP project · Sample route data</span><a href="#" data-page="manage">Manage booking</a></div></footer>
+<script src="app.js"></script>
+</body>
+</html>
